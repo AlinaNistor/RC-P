@@ -1,8 +1,8 @@
 import socket
 import struct
 
-IP = "127.0.0.1"
-PORT = 520
+IP = socket.gethostbyname('0.0.0.0')
+PORT = 2206
 
 
 class Receiver:
