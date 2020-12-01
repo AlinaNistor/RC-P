@@ -23,7 +23,6 @@ class Header:
         self.version = 2
         self.unused = 0
 
-    # header is a struct that contain command type, version and has last 16 bits zero
     def set_header(self, header):
         _header = struct.unpack(self.FORMAT, header)
         self.command = _header[0]
