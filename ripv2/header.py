@@ -28,3 +28,12 @@ class Header:
         self.command = _header[0]
         self.version = _header[1]
         self.unused = _header[2]
+
+    def set_command(self, command):
+        self.command = command
+
+    def pack(self):
+        return struct.pack(self.FORMAT, self.command, self.version, self.unused)
+
+    def validate_header(self):
+        pass
