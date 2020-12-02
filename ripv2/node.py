@@ -14,7 +14,7 @@ class Node:
     DELETE_TIMEOUT = BASE_TIMER * 4
 
     def __init__(self):
-        self.neighbours = []
+        self.neighbors = []
         self.routingTable = {}  # ipAddr : routeEntry
 
     def init_socket(self):
