@@ -36,4 +36,13 @@ class Header:
         return struct.pack(self.FORMAT, self.command, self.version, self.unused)
 
     def validate_header(self):
-        pass
+        if self.command not in [1, 2]:
+            print("Invalid header")
+            print("Command must be 1 or 2")
+            return False
+        if self.unused is not 0:
+            print("Invalid header")
+            return False
+
+        return True
+
