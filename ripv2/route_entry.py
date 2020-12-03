@@ -1,9 +1,6 @@
 import struct
 
-
-class RouteEntry:
-
-    '''
+'''
     <---------------------------32 BITS----------------------------->
     |       8       |       8       |       8       |       8       |
     =================================================================
@@ -21,8 +18,13 @@ class RouteEntry:
     METRIC - The metric field contains a value between 1 and 15 (inclusive) which
             specifies the current metric for the destination; or the value 16
             (infinity), which indicates that the destination is not reachable
-    '''
+'''
+
+
+class RouteEntry:
+
     FORMAT = "!HHIII"
+    SIZE = struct.calcsize(FORMAT)
 
     def __init__(self):
         self.addressFamilyIdentifier = 2
@@ -34,7 +36,7 @@ class RouteEntry:
 
         self.timeout = None
         self.garbageTime = None
-        self.changed = False
+        self.changedFlag = False
 
     def set_route_entry(self, route_entry):
         _route_entry = struct.unpack(self.FORMAT, route_entry)
@@ -63,3 +65,13 @@ class RouteEntry:
 
     def validate_entry(self):
         pass
+
+    def update(self):
+        pass
+
+    def __repr__(self):
+        return (f" {self.addressFamilyIdentifier} \t {self.routeTag} \t {self.ipAddress}"
+                f" \t {self.subnetMask} \t {self.nextHop} \t {self.metric}")
+
+    def __str__(self):
+        return self.__repr__()

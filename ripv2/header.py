@@ -1,8 +1,6 @@
 import struct
 
-
-class Header:
-    '''
+'''
 
     <---------------------------32 BITS----------------------------->
     |       8       |       8       |       8       |       8       |
@@ -13,7 +11,11 @@ class Header:
     COMMAND - "1" for request messages and "2" for respose messages
     VERSION - vrsion of RIP protocol ( 1 or 2 )
 
-    '''
+'''
+
+
+class Header:
+
     FORMAT = "!BBH"
     SIZE = struct.calcsize(FORMAT)
     NR_BITS_UNUSED = 16
@@ -40,9 +42,15 @@ class Header:
             print("Invalid header")
             print("Command must be 1 or 2")
             return False
-        if self.unused is not 0:
+
+        if self.unused != 0:
             print("Invalid header")
             return False
 
         return True
 
+    def __repr__(self):
+        return f"{self.command} \t {self.version}"
+
+    def __str__(self):
+        return self.__repr__()
