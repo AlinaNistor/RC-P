@@ -20,16 +20,12 @@ class Header:
     SIZE = struct.calcsize(FORMAT)
     NR_BITS_UNUSED = 16
 
-    def __init__(self):
-        self.command = 1
-        self.version = 2
+    def __init__(self, data):
+        self.command = data[0]
+        self.version = data[1]
         self.unused = 0
 
-    def set_header(self, header):
-        _header = struct.unpack(self.FORMAT, header)
-        self.command = _header[0]
-        self.version = _header[1]
-        self.unused = _header[2]
+        self.validate_header()
 
     def set_command(self, command):
         self.command = command
@@ -39,18 +35,13 @@ class Header:
 
     def validate_header(self):
         if self.command not in [1, 2]:
-            print("Invalid header")
-            print("Command must be 1 or 2")
-            return False
+            raise Exception("(RIP HEADER) Command must be 1 or 2")
 
         if self.unused != 0:
-            print("Invalid header")
-            return False
-
-        return True
-
-    def __repr__(self):
-        return f"{self.command} \t {self.version}"
+            raise Exception("(RIP HEADER) Unused bits are not set to zeros")
+        
+        if self.version not in [1, 2]:
+            raise Exception("(RIP HEADER) Inavlid protocol version")
 
     def __str__(self):
-        return self.__repr__()
+        return f"{self.command} \t {self.version}"
