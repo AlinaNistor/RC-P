@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1188</width>
-    <height>759</height>
+    <width>1067</width>
+    <height>866</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,55 +17,11 @@
    <string notr="true">background-color: rgb(185, 217, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="titleLabel">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>10</y>
-      <width>291</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt; font-weight:600;&quot;&gt;RIPv2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="scaledContents">
-     <bool>false</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="textBox">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>140</y>
-      <width>1141</width>
-      <height>461</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-    <property name="plainText">
-     <string/>
-    </property>
-    <property name="centerOnScroll">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>630</y>
+      <x>340</x>
+      <y>740</y>
       <width>151</width>
       <height>61</height>
      </rect>
@@ -78,16 +34,260 @@ font: 75 16pt &quot;Nirmala UI&quot;;</string>
      <string>Start</string>
     </property>
    </widget>
-   <zorder>textBox</zorder>
-   <zorder>titleLabel</zorder>
-   <zorder>startButton</zorder>
+   <widget class="QPushButton" name="stopButton">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>740</y>
+      <width>151</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 75 16pt &quot;Nirmala UI&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Stop</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="tableText">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>140</y>
+      <width>1011</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Lucida Sans</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="plainText">
+     <string/>
+    </property>
+    <property name="centerOnScroll">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="sendFirstButton">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>580</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Send first</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="sendAllButton">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>630</y>
+      <width>191</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Send all entries</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>580</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 11pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>5</number>
+    </property>
+    <property name="value">
+     <number>2</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>580</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>entries</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="detailsLabel">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>570</y>
+      <width>291</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: italic 9pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="plainText">
+     <string>ROUTE_TIMEOUT = BASE_TIMER * 6
+DELETE_TIMEOUT = BASE_TIMER * 4</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="timerSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>570</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Lucida Sans&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="minimum">
+     <number>2</number>
+    </property>
+    <property name="maximum">
+     <number>10</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="maxHopSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>650</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Lucida Sans&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>15</number>
+    </property>
+    <property name="value">
+     <number>2</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="baseTimeLabel">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>540</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Base time</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="HopLabel">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>620</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Max hop count</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="routingLabel">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>100</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Lucida Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Routing table</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="titleLabel">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>-20</y>
+      <width>211</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 63 36pt &quot;Lucida Sans&quot;;
+text-decoration: underline;</string>
+    </property>
+    <property name="text">
+     <string>RIP v2</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1188</width>
+     <width>1067</width>
      <height>26</height>
     </rect>
    </property>
