@@ -5,8 +5,6 @@ import netifaces as ni
 import time
 import struct
 import random
-from random import randrange
-import sched
 import ipcalc
 import threading
 from pack import RipPack
@@ -15,7 +13,7 @@ from header import Header
 
 
 class Node:
-    PORT = 5000
+    PORT = 520
     MULTICAST_ADDRESS = '224.0.0.1'
     BASE_TIMER = 5
     MAX_METRIC = 16
