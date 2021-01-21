@@ -1,38 +1,22 @@
-ECHO OFF
-REM Create virtnet topology
 
-ECHO You are about to clone the "base" VM to node(s). Make sure you
-ECHO have deleted any existing nodes before continuing. In the 
-ECHO VirtualBox GUI, if you have node1, node2, ... then right-click
-ECHO on them and select "Remove..." and then "Delete all files". 
-ECHO They need to be deleted before continuing.
-
-PAUSE
-
-REM Shortcut to the Virutal Box manager executable
 SET vbm="C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
 
-REM Clone and configure each node
 
 REM Node 1 
 %vbm% clonevm base --name node1 --snapshot base --options link --register
 %vbm% modifyvm node1 --cableconnected2 off
 %vbm% modifyvm node1 --cableconnected3 off
 %vbm% modifyvm node1 --nic2 intnet --intnet2 neta
-%vbm% modifyvm node1 --nic3 intnet --intnet3 netd
 %vbm% modifyvm node1 --cableconnected2 on
-%vbm% modifyvm node1 --cableconnected3 on
 %vbm% modifyvm node1 --natpf1 delete ssh
 %vbm% modifyvm node1 --natpf1 ssh,tcp,,2201,,22
 
-REM Node 2
+REM Node 2 
 %vbm% clonevm base --name node2 --snapshot base --options link --register
 %vbm% modifyvm node2 --cableconnected2 off
 %vbm% modifyvm node2 --cableconnected3 off
 %vbm% modifyvm node2 --nic2 intnet --intnet2 neta
-%vbm% modifyvm node2 --nic3 intnet --intnet3 netb
 %vbm% modifyvm node2 --cableconnected2 on
-%vbm% modifyvm node2 --cableconnected3 on
 %vbm% modifyvm node2 --natpf1 delete ssh
 %vbm% modifyvm node2 --natpf1 ssh,tcp,,2202,,22
 
@@ -40,8 +24,8 @@ REM Node 3
 %vbm% clonevm base --name node3 --snapshot base --options link --register
 %vbm% modifyvm node3 --cableconnected2 off
 %vbm% modifyvm node3 --cableconnected3 off
-%vbm% modifyvm node3 --nic2 intnet --intnet2 netb
-%vbm% modifyvm node3 --nic3 intnet --intnet3 netc
+%vbm% modifyvm node3 --nic2 intnet --intnet2 neta
+%vbm% modifyvm node3 --nic3 intnet --intnet3 netb
 %vbm% modifyvm node3 --cableconnected2 on
 %vbm% modifyvm node3 --cableconnected3 on
 %vbm% modifyvm node3 --natpf1 delete ssh
@@ -51,56 +35,7 @@ REM Node 4
 %vbm% clonevm base --name node4 --snapshot base --options link --register
 %vbm% modifyvm node4 --cableconnected2 off
 %vbm% modifyvm node4 --cableconnected3 off
-%vbm% modifyvm node4 --nic2 intnet --intnet2 netc
-%vbm% modifyvm node4 --nic3 intnet --intnet3 netf
+%vbm% modifyvm node4 --nic2 intnet --intnet2 netb
 %vbm% modifyvm node4 --cableconnected2 on
-%vbm% modifyvm node4 --cableconnected3 on
 %vbm% modifyvm node4 --natpf1 delete ssh
 %vbm% modifyvm node4 --natpf1 ssh,tcp,,2204,,22
-
-REM Node 5
-%vbm% clonevm base --name node5 --snapshot base --options link --register
-%vbm% modifyvm node5 --cableconnected2 off
-%vbm% modifyvm node5 --cableconnected3 off
-%vbm% modifyvm node5 --nic2 intnet --intnet2 netd
-%vbm% modifyvm node5 --nic3 intnet --intnet3 nete
-%vbm% modifyvm node5 --cableconnected2 on
-%vbm% modifyvm node5 --cableconnected3 on
-%vbm% modifyvm node5 --natpf1 delete ssh
-%vbm% modifyvm node5 --natpf1 ssh,tcp,,2205,,22
-
-REM Node 6
-%vbm% clonevm base --name node6 --snapshot base --options link --register
-%vbm% modifyvm node6 --cableconnected2 off
-%vbm% modifyvm node6 --cableconnected3 off
-%vbm% modifyvm node6 --nic2 intnet --intnet2 nete
-%vbm% modifyvm node6 --nic3 intnet --intnet3 netf
-%vbm% modifyvm node6 --cableconnected2 on
-%vbm% modifyvm node6 --cableconnected3 on
-%vbm% modifyvm node6 --natpf1 delete ssh
-%vbm% modifyvm node6 --natpf1 ssh,tcp,,2206,,22
-
-PAUSE
-
-ECHO You should now have the following new VMs in VirtualBox:
-ECHO    node1 node2 node3 node4 node5 node6
-ECHO If not, then make sure you delete any OLD node VMs before 
-ECHO running this command again. 
-ECHO You should now do the following for each node created:
-ECHO    1. Start "node1" in VirtualBox
-ECHO    2. Login with username "network" and password "network"
-ECHO    3. Run the command:
-ECHO       sudo bash virtnet/bin/vn-deploynode 27 1
-ECHO    4. Repeat steps 1, 2 and 3 for node2, but with command:
-ECHO       sudo bash virtnet/bin/vn-deploynode 27 2
-ECHO    5. Repeat steps 1, 2 and 3 for node3, but with command:
-ECHO       sudo bash virtnet/bin/vn-deploynode 27 3
-ECHO    6. Repeat steps 1, 2 and 3 for node4, but with command:
-ECHO       sudo bash virtnet/bin/vn-deploynode 27 4
-ECHO    7. Repeat steps 1, 2 and 3 for node5, but with command:
-ECHO       sudo bash virtnet/bin/vn-deploynode 27 5
-ECHO    8. Repeat steps 1, 2 and 3 for node6, but with command:
-ECHO       sudo bash virtnet/bin/vn-deploynode 27 6
-ECHO Perform the above steps now. Once completed, press any key to quit.
-
-PAUSE
