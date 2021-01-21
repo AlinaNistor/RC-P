@@ -19,6 +19,8 @@ class Header:
     FORMAT = "!BBH"
     SIZE = struct.calcsize(FORMAT)
     NR_BITS_UNUSED = 16
+    REQUEST_MESSAGE = 1
+    RESPONSE_MESSAGE = 2
 
     def __init__(self, data):
         self.command = data[0]

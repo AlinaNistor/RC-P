@@ -1,5 +1,6 @@
 import struct
 import ipaddress
+import time
 '''
     <---------------------------32 BITS----------------------------->
     |       8       |       8       |       8       |       8       |
@@ -20,12 +21,14 @@ import ipaddress
             (infinity), which indicates that the destination is not reachable
 '''
 
-INFINITY = 16
-
 class RouteEntry:
 
     FORMAT = "!HHIIII"
     SIZE = struct.calcsize(FORMAT)
+
+    TIMEOUT = 20
+    GARBAGE = 15
+    INFINITY = 16
 
     def __init__(self, entry):
         self.address_family_identifier = entry[0]
@@ -35,9 +38,10 @@ class RouteEntry:
         self.next_hop = entry[4]
         self.metric = entry[5]
 
-        self.timeout = None
-        self.garbage_time = None
+        self.timeout = time.time() + self.TIMEOUT
+        self.garbage_time = self.GARBAGE
         self.changed_flag = False
+        self.expired_flag = False
 
     def set_next_hop(self, next_hop):
         self.next_hop = next_hop
@@ -60,16 +64,43 @@ class RouteEntry:
                             int(self.next_hop),
                             self.metric)
 
-    def validate_entry(self):
-        pass
-
-    def update(self):
-        pass
-
     def __str__(self):
-        return (f"{self.address_family_identifier} \t " 
-                f"{self.route_tag} \t " 
-                f"{format(ipaddress.IPv4Address(self.ip_address))} \t "
-                f"{format(ipaddress.IPv4Address(self.subnet_mask))} \t " 
-                f"{format(ipaddress.IPv4Address(self.next_hop))} \t " 
-                f"{self.metric}\n")
+        metric = "inf"
+        if self.metric is not self.INFINITY:
+            metric = self.metric
+
+        repr = "|{:^10}|{:^10}|{:^20}|{:^20}|{:^25}|{:^12}| {:^20}| {:^15}| {:^15}| \n"
+        return repr.format(self.address_family_identifier,
+                self.route_tag,
+                format(ipaddress.IPv4Address(self.ip_address)),
+                format(ipaddress.IPv4Address(self.subnet_mask)),
+                format(ipaddress.IPv4Address(self.next_hop)),
+                metric,
+                self.expired_flag,
+                self.timeout_remaining(),
+                self.garbage_remaining()
+                )
+
+    def reset_timeout(self):
+        self.timeout = time.time() + self.TIMEOUT
+        self.garbage_time = self.GARBAGE
+        self.changed_flag = False
+        self.expired_flag = False
+
+    def expired(self):
+        self.metric = self.INFINITY
+        self.garbage_time = time.time() + self.GARBAGE
+        self.change_flag = True
+        self.expired_flag = True
+
+    def timeout_remaining(self):
+        if self.expired_flag:
+            return 0
+        else:
+            return int(self.timeout - time.time())
+
+    def garbage_remaining(self):
+        if self.expired_flag:
+            return int(self.garbage_time - time.time())
+        else:
+            return self.garbage_time
